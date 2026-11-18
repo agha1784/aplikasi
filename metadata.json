@@ -1,0 +1,8 @@
+{
+  "name": "RuangKelas — Manajemen Kelas & Tugas Daring",
+  "description": "Platform manajemen kelas, tugas, penilaian, dan interaksi diskusi antara pengajar dan siswa secara daring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

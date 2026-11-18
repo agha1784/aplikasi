@@ -1,0 +1,627 @@
+{
+  "entities": {
+    "PublicProfile": {
+      "title": "PublicProfile",
+      "description": "Public non-PII display profile for teachers and students.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "rolePreference": {
+          "type": "string",
+          "enum": ["teacher", "student", "both"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "photoURL", "rolePreference", "updatedAt"]
+    },
+    "UserPrivate": {
+      "title": "UserPrivate",
+      "description": "Private user account record containing email PII, accessible strictly by the owner.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "rolePreference": {
+          "type": "string",
+          "enum": ["teacher", "student", "both"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "displayName", "photoURL", "rolePreference", "createdAt", "updatedAt"]
+    },
+    "Enrollment": {
+      "title": "Enrollment",
+      "description": "User enrollment index linking a user to a classroom and their role in it.",
+      "type": "object",
+      "properties": {
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["teacher", "student"]
+        },
+        "joinedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["classId", "userId", "role", "joinedAt"]
+    },
+    "ClassCode": {
+      "title": "ClassCode",
+      "description": "Direct lookup record mapping an exact class invitation code to its classroom.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 8,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "section": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "teacherId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "teacherName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "bannerKey": {
+          "type": "string",
+          "enum": ["sains", "literatur", "informatika", "geometri"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["code", "classId", "title", "section", "subject", "teacherId", "teacherName", "bannerKey", "createdAt"]
+    },
+    "Classroom": {
+      "title": "Classroom",
+      "description": "Online classroom managed by a teacher.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "section": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "room": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "code": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 8,
+          "pattern": "^[A-Z0-9]+$"
+        },
+        "bannerKey": {
+          "type": "string",
+          "enum": ["sains", "literatur", "informatika", "geometri"]
+        },
+        "teacherId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "teacherName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "teacherPhotoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "archived": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "section",
+        "subject",
+        "room",
+        "description",
+        "code",
+        "bannerKey",
+        "teacherId",
+        "teacherName",
+        "teacherPhotoURL",
+        "archived",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ClassMember": {
+      "title": "ClassMember",
+      "description": "Authoritative membership and role record within a classroom.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["teacher", "student"]
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "joinedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["userId", "classId", "role", "displayName", "photoURL", "joinedAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Forum stream post shared in a classroom by teacher or student.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "authorPhotoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "authorRole": {
+          "type": "string",
+          "enum": ["teacher", "student"]
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "attachmentLink": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "attachmentLabel": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "classId",
+        "authorId",
+        "authorName",
+        "authorPhotoURL",
+        "authorRole",
+        "content",
+        "attachmentLink",
+        "attachmentLabel",
+        "pinned",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "Classwork item (assignment, quiz, or material) published by a teacher.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "teacherId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["assignment", "quiz", "material"]
+        },
+        "topic": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "instructions": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "maxPoints": {
+          "type": "number"
+        },
+        "dueDate": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "resourceLink": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "resourceLabel": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "status": {
+          "type": "string",
+          "enum": ["published", "closed"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "classId",
+        "teacherId",
+        "type",
+        "topic",
+        "title",
+        "instructions",
+        "maxPoints",
+        "dueDate",
+        "resourceLink",
+        "resourceLabel",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "Student assignment submission and teacher grading record.",
+      "type": "object",
+      "properties": {
+        "studentId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "studentName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "studentPhotoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "assignmentId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "teacherId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "answerText": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "attachmentUrl": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "attachmentTitle": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "submitted", "returned", "graded"]
+        },
+        "grade": {
+          "type": "number"
+        },
+        "teacherFeedback": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "submittedAt": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "studentId",
+        "studentName",
+        "studentPhotoURL",
+        "classId",
+        "assignmentId",
+        "teacherId",
+        "answerText",
+        "attachmentUrl",
+        "attachmentTitle",
+        "status",
+        "grade",
+        "teacherFeedback",
+        "submittedAt",
+        "updatedAt"
+      ]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Comment on an announcement, assignment, or private student-teacher submission thread.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "classId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "targetType": {
+          "type": "string",
+          "enum": ["announcement", "assignment", "submission"]
+        },
+        "targetId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "recipientId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "isPrivate": {
+          "type": "boolean"
+        },
+        "teacherId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "authorPhotoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "authorRole": {
+          "type": "string",
+          "enum": ["teacher", "student"]
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "classId",
+        "targetType",
+        "targetId",
+        "recipientId",
+        "isPrivate",
+        "teacherId",
+        "authorId",
+        "authorName",
+        "authorPhotoURL",
+        "authorRole",
+        "body",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/publicProfiles/{userId}": {
+      "schema": { "$ref": "#/entities/PublicProfile" },
+      "description": "Public display info for authenticated users (non-PII)."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPrivate" },
+      "description": "Private user account document with email PII."
+    },
+    "/users/{userId}/enrollments/{classId}": {
+      "schema": { "$ref": "#/entities/Enrollment" },
+      "description": "User-owned list of enrolled classrooms."
+    },
+    "/classCodes/{code}": {
+      "schema": { "$ref": "#/entities/ClassCode" },
+      "description": "Exact-match invitation code lookup document."
+    },
+    "/classes/{classId}": {
+      "schema": { "$ref": "#/entities/Classroom" },
+      "description": "Classroom metadata and teacher ownership."
+    },
+    "/classes/{classId}/members/{memberId}": {
+      "schema": { "$ref": "#/entities/ClassMember" },
+      "description": "Class roster and authoritative role membership."
+    },
+    "/classes/{classId}/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Classroom forum announcements and discussions."
+    },
+    "/classes/{classId}/assignments/{assignmentId}": {
+      "schema": { "$ref": "#/entities/Assignment" },
+      "description": "Classroom assignments, quizzes, and materials."
+    },
+    "/classes/{classId}/assignments/{assignmentId}/submissions/{studentId}": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "Per-student assignment submission and teacher grading."
+    },
+    "/classes/{classId}/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/Comment" },
+      "description": "Comments on announcements, assignments, or private submission threads."
+    }
+  }
+}
